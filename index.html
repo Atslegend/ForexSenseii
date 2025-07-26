@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forex Senseii | Trading Dojo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Urbanist:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00FF88;
+            --dojo-black: #0A0A0A;
+            --carbon: #121212;
+            --text-light: rgba(255,255,255,0.9);
+            --text-muted: rgba(255,255,255,0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background-color: var(--dojo-black);
+            color: var(--text-light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0,255,136,0.05) 0%, transparent 50%),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" x="1" y="1" fill="rgba(0,255,136,0.03)"/></svg>');
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background-color: rgba(10,10,10,0.7);
+            border-bottom: 1px solid rgba(0,255,136,0.1);
+        }
+
+        .logo {
+            height: 40px;
+            filter: drop-shadow(0 0 5px var(--neon-green));
+        }
+
+        .nav-toggle {
+            background: transparent;
+            border: none;
+            color: var(--neon-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, var(--dojo-black) 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(to right, #ffffff, var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0,255,136,0.3);
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(0,255,136,0.3); }
+            100% { text-shadow: 0 0 20px rgba(0,255,136,0.7), 0 0 30px rgba(0,255,136,0.4); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Urbanist', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--neon-green);
+            color: var(--dojo-black);
+            box-shadow: 0 0 15px rgba(0,255,136,0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0,255,136,0.8);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(0,255,136,0.1);
+            box-shadow: 0 0 15px rgba(0,255,136,0.3);
+        }
+
+        /* 3D Grid Background */
+        #grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* About Section */
+        .section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--neon-green);
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: var(--neon-green);
+            margin-top: 0.5rem;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: rgba(30,30,30,0.5);
+            border-radius: 10px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,255,136,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.1);
+            border-color: rgba(0,255,136,0.3);
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 0%,
+                rgba(0,255,136,0.03) 30%,
+                transparent 60%
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+
+        .about-card:hover::before {
+            animation: shine 1.5s;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-30%, -30%); }
+            100% { transform: rotate(30deg) translate(30%, 30%); }
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #121212, #0a0a0a);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3),
+                        -5px -5px 15px rgba(50,50,50,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(30,30,30,0.5);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,255,136,0.1),
+                        0 5px 15px rgba(0,255,136,0.07);
+            border-color: rgba(0,255,136,0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Query Form */
+        .query-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(30,30,30,0.5);
+            padding: 3rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,255,136,0.2);
+            box-shadow: 0 0 30px rgba(0,255,136,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-green);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(10,10,10,0.7);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: white;
+            font-family: 'Urbanist', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0,255,136,0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--neon-green);
+            color: var(--dojo-black);
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 0 20px rgba(0,255,136,0.7);
+            transform: translateY(-2px);
+        }
+
+        /* Testimonials */
+        .testimonials-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 2rem;
+            padding: 2rem 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .testimonial-card {
+            min-width: 300px;
+            background: rgba(30,30,30,0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            scroll-snap-align: start;
+            border: 1px solid rgba(0,255,136,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .stars {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10,10,10,0.9);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(0,255,136,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--neon-green);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .section {
+                padding: 4rem 5%;
+            }
+            
+            .query-form {
+                padding: 2rem;
+            }
+        }
+
+        /* 3D Animation Elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0,255,136,0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0,255,136,0); }
+            100% { box-shadow: 0 0 0 0 rgba(0,255,136,0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="https://via.placeholder.com/150x50/00FF88/0A0A0A?text=ForexSenseii" alt="Forex Senseii Logo" class="logo">
+        <button class="nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="grid-bg"></canvas>
+        <div class="hero-content">
+            <h1 class="tagline">LET'S DOMINATE MARKET</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem; max-width: 600px;">
+                Join the elite trading dojo where discipline meets strategy. Master the markets with precision techniques used by professional traders.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Join the Dojo</button>
+                <button class="btn btn-secondary">
+                    <i class="fab fa-instagram" style="margin-right: 8px;"></i> Watch Reels
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <h2 class="section-title">The Senseii Way</h2>
+        <div class="about-content">
+            <div class="about-card floating" style="animation-delay: 0s;">
+                <h3 class="card-title">Discipline</h3>
+                <p>The foundation of all successful trading. We train you to maintain emotional control and follow your strategy without deviation.</p>
+            </div>
+            <div class="about-card floating" style="animation-delay: 0.2s;">
+                <h3 class="card-title">Strategy</h3>
+                <p>Proven trading frameworks refined through thousands of market hours. No guesswork, just calculated probabilities.</p>
+            </div>
+            <div class="about-card floating" style="animation-delay: 0.4s;">
+                <h3 class="card-title">Mindset</h3>
+                <p>Develop the psychological edge that separates winners from the herd. Think like the 1% who consistently profit.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" style="background: linear-gradient(to bottom, var(--dojo-black), var(--carbon));">
+        <h2 class="section-title">Dojo Benefits</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Signals Access</h3>
+                <p>Receive high-probability trade alerts with detailed entry, stop loss, and take profit levels.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Live Trading Sessions</h3>
+                <p>Watch real-time market analysis and trade executions with commentary.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>1K Trader Challenge</h3>
+                <p>Prove your skills in our funded account challenge with real capital rewards.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <h3>Community Discord</h3>
+                <p>24/7 access to our private trading community with daily market discussions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Query Form -->
+    <section class="section">
+        <h2 class="section-title">Request Access</h2>
+        <form class="query-form pulse">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="telegram">Telegram ID (Optional)</label>
+                <input type="text" id="telegram" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="message">Your Trading Experience</label>
+                <textarea id="message" class="form-control" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Query to the Senseii</button>
+        </form>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background: var(--carbon);">
+        <h2 class="section-title">Trader Testimonials</h2>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Forex Senseii transformed my trading completely. The disciplined approach helped me turn consistent for the first time in 3 years."
+                </p>
+                <p class="testimonial-author">- Marcus K., Prop Trader</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "The 1K Challenge was the push I needed. Passed in 2 weeks and now trading with a $50K account!"
+                </p>
+                <p class="testimonial-author">- Sarah L., Funded Trader</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Best trading community I've found. The daily analysis saves me hours of chart time while improving my win rate."
+                </p>
+                <p class="testimonial-author">- David R., Swing Trader</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+        </div>
+        <p class="copyright">Copyright © 2025 Forex Senseii. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // 3D Grid Background Animation
+        const gridBg = document.getElementById('grid-bg');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: gridBg,
+            alpha: true,
+            antialias: true
+        });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // Create grid
+        const gridGeometry = new THREE.BufferGeometry();
+        const gridMaterial = new THREE.LineBasicMaterial({ 
+            color: 0x00FF88,
+            transparent: true,
+            opacity: 0.1
+        });
+        
+        const gridSize = 40;
+        const gridDivisions = 40;
+        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00FF88, 0x00FF88);
+        gridHelper.material.opacity = 0.1;
+        gridHelper.material.transparent = true;
+        scene.add(gridHelper);
+        
+        // Add pulsing center sphere
+        const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+        const sphereMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x00FF88,
+            transparent: true,
+            opacity: 0.3
+        });
+        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        scene.add(sphere);
+        
+        camera.position.z = 5;
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            gridHelper.rotation.x += 0.0005;
+            gridHelper.rotation.y += 0.001;
+            
+            // Pulsing effect
+            sphere.scale.x = 1 + Math.sin(Date.now() * 0.001) * 0.3;
+            sphere.scale.y = 1 + Math.sin(Date.now() * 0.001) * 0.3;
+            sphere.scale.z = 1 + Math.sin(Date.now() * 0.001) * 0.3;
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Form submission
+        const form = document.querySelector('.query-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Create ripple effect
+            const button = form.querySelector('.submit-btn');
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            button.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+            
+            // Here you would typically send the form data to your server
+            console.log('Form submitted!');
+        });
+        
+        // Floating animation for cards
+        const floatingElements = document.querySelectorAll('.floating');
+        floatingElements.forEach(el => {
+            const delay = parseFloat(el.style.animationDelay || '0');
+            el.style.animationDelay = `${delay + Math.random() * 0.5}s`;
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
